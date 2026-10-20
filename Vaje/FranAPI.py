@@ -32,22 +32,61 @@ def v_evre(a):
         print(f"{round(a["rates"][valuta]*mult, 0)} {valuta} = {a["amount"]*mult} EUR")
 
 def vaja3(a):
-    i = 0
-    print(a["rates"]["2026-09-01"])
-    while i < 7:
-        
-        i += 1
+    datum = a["rates"]
+    nuhuh = None
+    for date, values in datum.items():
+        rate = values["USD"]
+        if nuhuh is None:
+            print(f"{date}: {rate}")
+        elif rate > nuhuh:
+            print(f"{date}: {rate} (gor)")
+        elif rate < nuhuh:
+            print(f"{date}: {rate} (dol)")
+        else:
+            print(f"{date}: {rate} (nespremenjen)")
+        nuhuh = rate
+
+def vaja4(a):
+    koli = a["rates"]
+    valute = ["USD", "GBP", "CHF"]
+    for val1 in valute:
+        for val2 in valute:
+            if val1 == val2:
+                continue
+            tec = koli[val2] / koli[val1]
+            print("1", val1, "=", round(tec, 4), val2)
+
+def vaja5(a):
+    datum = a["rates"]
+    valu = None
+    rezUP = []
+    rezDAT = []
+    rezDOWN = []
+    rezTAD = []
+    for date, values in datum.items():
+        rate = values["GBP"]
+        if rate*800 > 800:
+            rezUP.append(rate)
+            rezDAT.append(date)
+        else:
+            rezDOWN.append(rate)
+            rezTAD(date)
+
 
 
 def main():
     fran = r.get("https://api.frankfurter.dev/v1/latest")
     fran2 = r.get("https://api.frankfurter.dev/v1/2026-09-01..2026-09-07?symbols=USD")
-    franSON = fran2.json()
+    fran3 = r.get("https://api.frankfurter.dev/v1/2026-09-01..2026-09-30?symbols=GBP")
     franJSON = fran.json()
+    franSON = fran2.json()
+    franON =fran3.json()
     # vaja1(franJSON, fran)
     # v_tujo(franJSON)
     # v_evre(franJSON)
-    vaja3(franSON)
+    # vaja3(franSON)
+    # vaja4(franJSON)
+    vaja5(franON)
 
 if __name__ == "__main__":
     main()
