@@ -77,7 +77,24 @@ def vaja6():
             poskusi += 1
 
 def cena_s_popustom(cena,popust):
-    pass
+    popust = (100-popust)/100
+    novaCena = cena * popust
+    return novaCena
+
+def je_prastevilo(n):
+    if n <= 1:
+        return False
+    else:
+        prime = True
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                prime = False
+                break
+        return prime
+
+def dni_nad_ciljem(koraki:list, cilj):
+    
+
 
 def main():
     # vaja1()
@@ -86,9 +103,17 @@ def main():
     # vaja4()
     # vaja5()
     # vaja6()
-    cena = int(input("vnesi ceno: "))
-    popust = int(input("vnesi % popusta: "))
-    cena_s_popustom(cena, popust)
+
+    # cena = int(input("vnesi ceno: "))
+    # popust = float(input("vnesi % popusta: "))
+    # print(f"Nova cena je: {cena_s_popustom(cena, popust)} EUR")
+
+    # n = int(input("Vnesi stevilo: "))
+    # print(je_prastevilo(n))
+
+    cilj = int(input("vnesi koliko hoces doseci: "))
+    koraki = []
+    dni_nad_ciljem(koraki:list,cilj)
 
 if __name__ == "__main__":
     main()
